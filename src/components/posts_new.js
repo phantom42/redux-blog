@@ -3,6 +3,8 @@ import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
 
+import AuthorName from './authorName';
+
 class PostsNew extends Component {
 	static contextTypes = {
 		router: PropTypes.object
@@ -18,7 +20,7 @@ class PostsNew extends Component {
 			});
 	}
 	render(){
-		const { fields: { title, categories, content }, handleSubmit } = this.props;
+		const { fields: { title, categories, content, authorName }, handleSubmit } = this.props;
 		return (
 			// handleSubmit is a built-in redux-form function
 			// <form onSubmit={handleSubmit(this.props.createPost)}>
@@ -47,6 +49,7 @@ class PostsNew extends Component {
 						{content.touched ? content.error : null}
 					</div>
 				</div>
+				<AuthorName field={authorName} />
 
 				<button type="submit" className="btn btn-primary">Submit</button>
 				<Link to="/" className="btn btn-danger">Cancel</Link>
@@ -67,6 +70,9 @@ function validate(values) {
 	if (!values.content){
 		errors.content = 'enter some content';
 	}
+	 if (!values.authorName){
+	 	errors.authorName = 'enter an author';
+	 }
 
 	return errors;
 }
@@ -75,7 +81,7 @@ function validate(values) {
 // reduxform: 1st form config, 2nd mapStateToProps, 3rd is mapDispatchToProps
 export default reduxForm({
 	form: 'PostsNew',
-	fields: ['title', 'categories', 'content'],
+	fields: ['title', 'categories', 'content', 'authorName'],
 	validate
 }, null, { createPost })(PostsNew);
 
