@@ -4,7 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
   //state: (state = {}) => state
-  post: PostsReducer,
+  posts: PostsReducer,
   form: formReducer
 });
 
